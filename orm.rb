@@ -89,9 +89,7 @@ module ORM
 
     def update
       hash = to_hash
-      keys_no_id = hash.keys.clone
-      keys_no_id.delete(:id)
-      db.execute("UPDATE #{table_name} SET #{self.class.convert_keys(keys_no_id,' , ')} WHERE id = :id", hash)
+      db.execute("UPDATE #{table_name} SET #{self.class.convert_keys(hash.keys - [:id],' , ')} WHERE id = :id", hash)
       self
     end
 
