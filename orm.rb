@@ -3,8 +3,6 @@ require 'active_support/inflector'
 
 module ORM
 
-  All = []
-
   module ClassMethods
 
     def db
@@ -52,7 +50,13 @@ module ORM
     end
 
     def all
-      All
+      results = []
+      headers = nil
+      db.execute2 "SELECT * FROM #{table_name}" do |row|
+        results << self.new.from_hash(Hash[[headers,row].transpose]) if headers
+        headers ||= row
+      end
+      results
     end
 
     def convert_keys(keys, separator = ' AND ')
@@ -70,11 +74,6 @@ module ORM
   end
 
   module InstanceMethods
-
-    def add_to_collection
-      All << self
-    end
-
 
     def save
       instance_variable_get("@id") ? update : insert
@@ -114,7 +113,7 @@ module ORM
     private
 
     def db
-      self.class::DB
+      self.class.db
     end
 
     def table_name

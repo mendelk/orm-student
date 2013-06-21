@@ -17,6 +17,7 @@ test 'should be able to save a student with a name' do
   s = Student.new
   s.name = "Avi Flombaum"
   s.save
+
   assert_equal Student.find_by_name("Avi Flombaum").name, "Avi Flombaum"
 end
 

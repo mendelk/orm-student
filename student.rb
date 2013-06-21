@@ -19,10 +19,6 @@ class Student
   attr_reader :id
   attr_finder :name, :tagline, :bio
 
-  def initialize
-    add_to_collection
-  end
-
 end
 
 # pry.bindings
