@@ -1,11 +1,12 @@
 require 'fis/test'
 require_relative 'student'
-
 include Fis::Test
 
 test 'should create a table' do
   assert Student.drop
+  assert !Student.table_exists?('students')
   assert Student.create_table
+  assert Student.table_exists?('students')
 end
 
 test 'should be able to instantiate a student' do
@@ -16,7 +17,6 @@ test 'should be able to save a student with a name' do
   s = Student.new
   s.name = "Avi Flombaum"
   s.save
-
   assert_equal Student.find_by_name("Avi Flombaum").name, "Avi Flombaum"
 end
 
@@ -52,7 +52,7 @@ test 'should be able to retrive a student with a where statment' do
   s.name = "Jeff Baird"
   s.save
 
-  assert_equal Student.where(:name => "Jeff Baird"), [[s.id, "Jeff Baird", nil, nil]]
+  assert_equal Student.where(:name => "Jeff Baird").map { |s| s.name }, [s.name]
 
 end
 
@@ -66,7 +66,7 @@ test 'should be able to retrieve multiple students with the same name' do
   s2.save
 
 
-  assert_equal Student.where(:name => "Alice Adams"), [[s.id, "Alice Adams", nil, nil],[s2.id, "Alice Adams", nil, nil]]
+  assert_equal Student.where(:name => "Alice Adams").map {|s| s.name}, [s.name,s2.name]
 end
 
 test 'should be able to find_by any attribue' do
@@ -80,4 +80,3 @@ test 'should be able to find_by any attribue' do
  assert_equal Student.find_by_bio("Dean at Flatiron School").bio, "Dean at Flatiron School"
  assert_equal Student.find_by_name("Avi Flombaum").name, "Avi Flombaum"
 end
-
