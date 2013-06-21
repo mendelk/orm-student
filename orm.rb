@@ -3,8 +3,6 @@ require 'active_support/inflector'
 
 module ORM
 
-
-
   All = []
 
   module ClassMethods
@@ -14,17 +12,17 @@ module ORM
     end
 
     def table_name
-      self.to_s.downcase.pluralize
+        self.to_s.downcase.pluralize
     end
 
     def drop
-      db.execute "DROP TABLE IF EXISTS #{self.to_s.downcase.pluralize}"
+      db.execute "DROP TABLE IF EXISTS #{table_name}"
     end
 
     def create_table
       schema = ''
       self::SCHEMA.each{|k,v| schema << k.to_s + ' ' + v.to_s + ','}
-      db.execute "CREATE TABLE IF NOT EXISTS #{self.to_s.downcase.pluralize} (#{schema[0..-2]})"
+      db.execute "CREATE TABLE IF NOT EXISTS #{table_name} (#{schema[0..-2]})"
     end
 
     def table_exists?(table)
