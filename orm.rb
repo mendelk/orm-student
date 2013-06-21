@@ -19,10 +19,12 @@ module ORM
       db.execute "DROP TABLE IF EXISTS #{table_name}"
     end
 
+    def schema_to_sql
+      self::SCHEMA.inject(''){|result, k_v_arr| result << k_v_arr.first.to_s << ' ' << k_v_arr.last << ','}[0..-2]
+    end
+
     def create_table
-      schema = ''
-      self::SCHEMA.each{|k,v| schema << k.to_s + ' ' + v.to_s + ','}
-      db.execute "CREATE TABLE IF NOT EXISTS #{table_name} (#{schema[0..-2]})"
+      db.execute "CREATE TABLE IF NOT EXISTS #{table_name} (#{schema_to_sql})"
     end
 
     def table_exists?(table)
