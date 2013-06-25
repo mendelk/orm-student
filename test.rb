@@ -4,9 +4,9 @@ include Fis::Test
 
 test 'should create a table' do
   assert Student.drop
-  assert !Student.table_exists?('students')
+  assert !Student.table_exists?
   assert Student.create_table
-  assert Student.table_exists?('students')
+  assert Student.table_exists?
 end
 
 test 'should be able to instantiate a student' do
