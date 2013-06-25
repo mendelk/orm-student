@@ -1,3 +1,6 @@
+require 'sqlite3'
+require 'active_support/inflector'
+
 module Persistable
 
   def self.included(base)
