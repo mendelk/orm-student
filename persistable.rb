@@ -1,5 +1,5 @@
 require 'sqlite3'
-require 'active_support/inflector'
+# require 'active_support/inflector'
 
 module Persistable
 
@@ -57,7 +57,8 @@ module Persistable
     end
 
     def table_name
-        self.to_s.downcase.pluralize
+        # self.to_s.downcase.pluralize
+        self.to_s.downcase + "s"
     end
 
     def drop
