@@ -2,6 +2,7 @@ require 'bundler/capistrano' # for bundler support
 
 set :application, "Student_ORM"
 set :repository,  "git@github.com:mendelk/orm-student.git"
+set :branch, "master"
 
 set :user, 'mendel'
 set :deploy_to, "/home/#{ user }/#{ application }"
