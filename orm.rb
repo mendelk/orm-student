@@ -1,5 +1,5 @@
 require 'sqlite3'
-require 'active_support/inflector'
+# require 'active_support/inflector'
 
 module ORM
 
