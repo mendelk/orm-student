@@ -1,4 +1,3 @@
-require_relative 'orm'
 require_relative 'persistable'
 require_relative 'findable'
 
