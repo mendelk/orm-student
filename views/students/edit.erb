@@ -1,0 +1,15 @@
+<h2>Edit <%= @student.name %></h2>
+
+<form action="/students/<%= @student.id %>" method="post" accept-charset="utf-8">
+  <p>Name: <input type="text" id="name" value="<%= @student.name %>" name="student[name]" /></p>
+  <p>Twitter: <input type="text" id="twitter" value="<%= @student.twitter %>" name="student[twitter]" /></p>
+  <p>LinkedIn: <input type="text" id="linked" value="<%= @student.linkedin %>" name="student[linkedin]" /></p>
+  <p>Quote: <input type="text" id="quote" value="<%= @student.quote %>" name="student[quote]" /></p>
+  <input name="_method" type="hidden" value="put" />
+  <p><input type="submit" value="Update student!" /></p>
+</form>
+
+<form action="/students/<%= @student.id %>" method="post">
+  <input type="hidden" name="_method" value="delete" />
+  <input type="submit" value="Delete student!">
+</form>

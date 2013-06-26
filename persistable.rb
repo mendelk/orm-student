@@ -25,6 +25,10 @@ module Persistable
     self
   end
 
+  def destroy!
+    db.execute("DELETE FROM #{table_name} WHERE id = ?", instance_variable_get("@id"))
+  end
+
   def to_hash
     hash = {}
     self.class::SCHEMA.keys.each do |prop|
